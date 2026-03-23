@@ -16,6 +16,8 @@ jobs:
   build-firmware:
     name: Build ESP32 Firmware
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
