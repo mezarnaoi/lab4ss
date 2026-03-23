@@ -92,3 +92,11 @@ jobs:
 
       - name: Security scan with Bandit
         run: bandit receiver.py -ll
+
+  check-python_again:
+    name: Python Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Smoke test
+        run: python -m py_compile receiver.py
