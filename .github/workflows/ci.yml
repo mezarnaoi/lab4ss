@@ -36,7 +36,12 @@ jobs:
         with:
           name: firmware-esp32cam
           path: .pio/build/esp32cam/firmware.bin
- 
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: .pio/build/esp32cam/firmware.bin
   # =============================================
   # Job 2: Analiza statică C++ (Firmware)
   # =============================================
