@@ -7,15 +7,39 @@
 #include <PubSubClient.h>
 // CAMERA_MODEL is defined in platformio.ini
 #include "camera_pins.h"
- 
+#include <WiFiClientSecure.h> 
 // ===========================
 // Configuration
 // ===========================
 const char* ssid     = "rzi";       // TODO: Modificați cu SSID-ul rețelei voastre
 const char* password = "12345678";     // TODO: Modificați cu parola rețelei voastre
 const char* mqtt_server = "10.239.0.50"; // TODO: Modificați cu IP-ul calculatorului (ip addr / ipconfig)
-const int mqtt_port = 1883;
+const int mqtt_port = 8883;
  
+
+const char* ca_cert = \
+"-----BEGIN CERTIFICATE-----\n" \
+"MIIDCzCCAfOgAwIBAgIUAgvh6y0CBAv2AR+kkn5+Tfozqa0wDQYJKoZIhvcNAQEL\n" \
+"BQAwFTETMBEGA1UEAwwKU1MtUHJvamVjdDAeFw0yNjAzMzAxNzE2MTFaFw0zNjAz\n" \
+"MjcxNzE2MTFaMBUxEzARBgNVBAMMClNTLVByb2plY3QwggEiMA0GCSqGSIb3DQEB\n" \
+"AQUAA4IBDwAwggEKAoIBAQDRlHpEylpFNuMshhUVkrMOyk1RfTI5Tzd1qdqXzYA9\n" \
+"nmTxcgrZlh3JU7n9bmw7k/SmdTuB7rRwyGfo760ZoOo4Ne65to6jj0BU/K2VJcNo\n" \
+"SMHrMhwZ4/CFhKYYJl9dBmXNg7OgXpcVwHro4lHefnPXt0pX0HJiSheKgb9e9KcS\n" \
+"FS1Ew2p1ctdC2ayS97qcPF/4/5yrTb7ugFhzoLHeZZWsNdoBIBAQA5xV64K72GFg\n" \
+"s6rgtp5D5E9XgXHzDr+ggqGWCowzREbvrcRILKzSDZc7n97nyOntXp7FZVoof+Bf\n" \
+"UP79iClhkm7XLbj9zM7a8w1/IGpehYzxLpQGJzgxY+wtAgMBAAGjUzBRMB0GA1Ud\n" \
+"DgQWBBSfudbQ17smyPJTwSZDdCohTUA59jAfBgNVHSMEGDAWgBSfudbQ17smyPJT\n" \
+"wSZDdCohTUA59jAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQBk\n" \
+"3HMkcRP3AgL5FPUcyDLwlBzyBh2HrJa+rVdJspsTjAYhYqznavv/y/7Vl9W2EyRB\n" \
+"aTacwGSj3GJkOs9wps80JveaH0CL+ETBI6xsE/aLTR9Wd0BAqTMwSKx9QCcx5AfL\n" \
+"2rn2Mqv8JQ5gK7voP1L+9oZob0GIlzR53Gtx/ypp5p12Btk2YBBXQV77y7EXbOsv\n" \
+"xRy1AVtUqs+fVwq9DyfThxbCi6sCtOgpZfjsuQnIXAoH4GNCrsD2nuYrcky7565C\n" \
+"1WD2MMwYA1x8xsTs8wAR2VgTFimwoWPB7MiClt2lokyjHm1TbE7qff+oiFo7KFGp\n" \
+"IeO1yMKx4rRE0TT2pmsO\n" \
+"-----END CERTIFICATE-----\n";
+
+WiFiClientSecure espClient;
+
 // Topics
 const char* TOPIC_COMMAND = "ssproject/commands";
 const char* TOPIC_IMAGE   = "ssproject/images";
@@ -144,6 +168,7 @@ void setup() {
   Serial.printf("\nWiFi connected! IP: %s\n", WiFi.localIP().toString().c_str());
  
   client.setKeepAlive(60);   
+  espClient.setCACert(ca_cert);
   client.setServer(mqtt_server, mqtt_port);
   client.setCallback(callback);
   client.setBufferSize(65000); 
