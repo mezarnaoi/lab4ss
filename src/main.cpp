@@ -3,6 +3,7 @@
   Description : ESP32-CAM MQTT Image Transfer
 **********************************************************************/
 #include "esp_camera.h"
+#include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <PubSubClient.h>
 // CAMERA_MODEL is defined in platformio.ini
@@ -12,7 +13,7 @@
 // ===========================
 // Configuration
 // ===========================
-const char* mqtt_server = "10.239.0.50"; // TODO: Modificați cu IP-ul calculatorului (ip addr / ipconfig)
+const char* mqtt_server = "10.152.215.50"; // TODO: Modificați cu IP-ul calculatorului (ip addr / ipconfig)
 
 const int mqtt_port = 8883;
 
@@ -132,7 +133,7 @@ void reconnect() {
     clientId += String(random(0xffff), HEX);
     Serial.printf(" (clientId=%s)\n", clientId.c_str());
  
-    if (client.connect(clientId.c_str())) {
+    if (client.connect(clientId.c_str(), mqtt_user, mqtt_password)) {
       Serial.println("MQTT connected!");
       bool subOk = client.subscribe(TOPIC_COMMAND);
       Serial.printf("Subscribe to '%s': %s\n", TOPIC_COMMAND, subOk ? "OK" : "FAILED");
