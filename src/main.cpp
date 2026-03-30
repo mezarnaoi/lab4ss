@@ -7,12 +7,11 @@
 #include <PubSubClient.h>
 // CAMERA_MODEL is defined in platformio.ini
 #include "camera_pins.h"
+#include "secrets.h"
  
 // ===========================
 // Configuration
 // ===========================
-const char* ssid     = "rzi";       // TODO: Modificați cu SSID-ul rețelei voastre
-const char* password = "12345678";     // TODO: Modificați cu parola rețelei voastre
 const char* mqtt_server = "10.239.0.50"; // TODO: Modificați cu IP-ul calculatorului (ip addr / ipconfig)
 
 const int mqtt_port = 8883;
