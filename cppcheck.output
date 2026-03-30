@@ -1,0 +1,60 @@
+Checking src/main.cpp ...
+src/main.cpp:5:2: information: Include file: "esp_camera.h" not found. [missingInclude]
+#include "esp_camera.h"
+ ^
+src/main.cpp:6:2: information: Include file: <WiFiClientSecure.h> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <WiFiClientSecure.h>
+ ^
+src/main.cpp:7:2: information: Include file: <PubSubClient.h> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <PubSubClient.h>
+ ^
+src/main.cpp:9:2: information: Include file: "camera_pins.h" not found. [missingInclude]
+#include "camera_pins.h"
+ ^
+src/main.cpp:185:37: style: C-style pointer casting [cstyleCast]
+    if (client.publish(TOPIC_IMAGE, (const uint8_t*)fb->buf, fb->len)) {
+                                    ^
+src/main.cpp:102:34: style: Parameter 'payload' can be declared as pointer to const. However it seems that 'callback' is a callback function, if 'payload' is declared with const you might also need to cast function pointer(s). [constParameterCallback]
+void callback(char* topic, byte* payload, unsigned int length) {
+                                 ^
+src/main.cpp:174:22: note: You might need to cast the function pointer here
+  client.setCallback(callback);
+                     ^
+src/main.cpp:102:34: note: Parameter 'payload' can be declared as pointer to const
+void callback(char* topic, byte* payload, unsigned int length) {
+                                 ^
+1/2 files checked 49% done
+Checking test/src/main.cpp ...
+test/src/main.cpp:5:2: information: Include file: "esp_camera.h" not found. [missingInclude]
+#include "esp_camera.h"
+ ^
+test/src/main.cpp:6:2: information: Include file: <WiFi.h> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <WiFi.h>
+ ^
+test/src/main.cpp:7:2: information: Include file: <PubSubClient.h> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <PubSubClient.h>
+ ^
+test/src/main.cpp:9:2: information: Include file: "camera_pins.h" not found. [missingInclude]
+#include "camera_pins.h"
+ ^
+test/src/main.cpp:10:2: information: Include file: <WiFiClientSecure.h> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <WiFiClientSecure.h>
+ ^
+test/src/main.cpp:184:37: style: C-style pointer casting [cstyleCast]
+    if (client.publish(TOPIC_IMAGE, (const uint8_t*)fb->buf, fb->len)) {
+                                    ^
+test/src/main.cpp:101:34: style: Parameter 'payload' can be declared as pointer to const. However it seems that 'callback' is a callback function, if 'payload' is declared with const you might also need to cast function pointer(s). [constParameterCallback]
+void callback(char* topic, byte* payload, unsigned int length) {
+                                 ^
+test/src/main.cpp:173:22: note: You might need to cast the function pointer here
+  client.setCallback(callback);
+                     ^
+test/src/main.cpp:101:34: note: Parameter 'payload' can be declared as pointer to const
+void callback(char* topic, byte* payload, unsigned int length) {
+                                 ^
+2/2 files checked 100% done
+src/main.cpp:151:6: style: The function 'setup' is never used. [unusedFunction]
+void setup() {
+     ^
+nofile:0:0: information: Active checkers: 183/975 (use --checkers-report=<filename> to see details) [checkersReport]
+
