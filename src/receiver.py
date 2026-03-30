@@ -45,7 +45,8 @@ def main():
     client.on_message = on_message
  
     try:
-        client.connect(BROKER, PORT, 60)
+        client.tls_set(ca_certs="certs/ca.crt")
+        client.connect(BROKER, 8883, 60)
         client.loop_start()
  
         print("\n--- ESP32 Camera Controller ---")
