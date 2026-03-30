@@ -4,7 +4,7 @@ import numpy as np
 import threading
  
 # Configuration
-BROKER = "10.239.0.50"  # TODO: Modificați cu IP-ul brokerului vostru
+BROKER = os.getenv(“MQTT_BROKER”)  # TODO: Modificați cu IP-ul brokerului vostru
 PORT = 1883
 TOPIC_IMAGE = "ssproject/images"
 TOPIC_COMMAND = "ssproject/commands"
